@@ -8,6 +8,6 @@ Java学习助手Demo
 2.实现添加星标题目
 
 ==========
- ![image](https://github.com/ghbhaha/JavaStudyHelper/screenshot/a.png)
- ![image](https://github.com/ghbhaha/JavaStudyHelper/screenshot/b.png)
+ ![image](https://github.com/ghbhaha/JavaStudyHelper/blob/master/screenshot/a.png)
+ ![image](https://github.com/ghbhaha/JavaStudyHelper/blob/master/screenshot/b.png)
 
