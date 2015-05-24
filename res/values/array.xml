@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="title">
+        <item>Java基础（上）</item>
+        <item>Java基础（下）</item>
+        <item>Java Web基础</item>
+        <item>Java Web框架</item>
+        <item>数据结构与算法</item>
+        <item>高频编程题</item>
+        <item>数据库基础</item>
+        <item>名企面试经典推理题</item>
+        <item>面试技巧</item>
+        <item>非技术问题</item>
+    </string-array>
+    <string-array name="type">
+        <item>java1</item>
+        <item>java2</item>
+        <item>javaweb</item>
+        <item>webframe</item>
+        <item>datastructure</item>
+        <item>program</item>
+        <item>database</item>
+        <item>reasoning</item>
+        <item>knack</item>
+        <item>untechnology</item>
+    </string-array>
+
+</resources>

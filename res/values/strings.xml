@@ -4,5 +4,7 @@
     <string name="app_name">Java宝典</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_answer">答案</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

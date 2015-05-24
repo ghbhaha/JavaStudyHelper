@@ -3,6 +3,7 @@ package com.suda.java_question;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
@@ -13,8 +14,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.TypedValue;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 
 import com.suda.java_question.db.DBOpenHelper;
@@ -23,6 +26,8 @@ import com.suda.java_question.widget.PagerSlidingTabStrip;
 
 @SuppressWarnings("deprecation")
 public class Main extends ActionBarActivity {
+
+	private int typeId;
 
 	private DBOpenHelper dbOpenHelper = new DBOpenHelper(this);
 
@@ -33,20 +38,35 @@ public class Main extends ActionBarActivity {
 
 	private String KEY_FIRST_IN = "isFirstIn";
 	private SharedPreferences sharedPreferences;
-	
+
+	private String[] title;
+	private String[] type;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_ui);
 
+		ActionBar actionBar = getSupportActionBar();
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+		title = getResources().getStringArray(R.array.title);
+		type = getResources().getStringArray(R.array.type);
+
+		Intent intent = getIntent();
+		Bundle bundle = intent.getExtras();
+		typeId = bundle.getInt("typeId");
+
+		actionBar.setTitle(title[typeId]);
+
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		
+
 		if (isFirstIn()) {
 			CopyDatabase.copyEmbassy2Databases(this,
 					"data/data/com.suda.java_question/databases/",
 					"java_question.db");
 		}
-		
+
 		Editor editor = sharedPreferences.edit();
 		editor.putBoolean(KEY_FIRST_IN, false);
 		editor.commit();
@@ -77,13 +97,11 @@ public class Main extends ActionBarActivity {
 
 	}
 
-	
 	// 判断是否首次启动
 	private boolean isFirstIn() {
 		return sharedPreferences.getBoolean(KEY_FIRST_IN, true);
 	}
-	
-	
+
 	private void initTabsValue() {
 		// 底部游标颜色
 		// mPagerSlidingTabStrip.setIndicatorColor(Color.WHITE);
@@ -158,9 +176,9 @@ public class Main extends ActionBarActivity {
 
 			switch (position) {
 			case 0:
-				return new AllQuestionFrg(dbOpenHelper);
+				return new AllQuestionFrg(dbOpenHelper, type[typeId]);
 			case 1:
-				return new MarkQuestionFrg(dbOpenHelper);
+				return new MarkQuestionFrg(dbOpenHelper, type[typeId]);
 
 			default:
 				return null;
@@ -168,6 +186,15 @@ public class Main extends ActionBarActivity {
 
 		}
 
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		if (item.getItemId() == android.R.id.home) {
+			onBackPressed();
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 }

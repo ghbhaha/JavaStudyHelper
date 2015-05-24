@@ -27,14 +27,18 @@ import com.suda.java_question.model.Question;
 @SuppressLint("NewApi")
 public class AllQuestionFrg extends Fragment {
 	private DBOpenHelper dbOpenHelper;
+	private String type;
+
 	ListView listView;
 	ArrayList<Question> arrayList;
 
 	private MyAdapter adapter;
 
-	public AllQuestionFrg(DBOpenHelper dbOpenHelper) {
+	public AllQuestionFrg(DBOpenHelper dbOpenHelper, String type) {
 		// TODO Auto-generated constructor stub
 		this.dbOpenHelper = dbOpenHelper;
+		this.type = type;
+
 	}
 
 	@Override
@@ -56,8 +60,8 @@ public class AllQuestionFrg extends Fragment {
 
 		ArrayList<Question> arrayList = new ArrayList<>();
 		SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
-		Cursor cursor = db
-				.query("question", null, null, null, null, null, null);
+		Cursor cursor = db.query("question", null, "Type=?",
+				new String[] { type }, null, null, null);
 		int i = 0;
 		while (cursor.moveToNext()) {
 			i++;
@@ -113,8 +117,8 @@ public class AllQuestionFrg extends Fragment {
 		ContentValues values = new ContentValues();
 		values.put("Mark", mark == 1 ? 0 : 1);
 
-		cursor.update("question", values, "Id=?", new String[] { arrayList
-				.get(position).getNo() + "" });
+		cursor.update("question", values, "Id=?",
+				new String[] { arrayList.get(position).getNo() + "" });
 
 		arrayList.get(position).setMark(mark == 1 ? 0 : 1);
 
